@@ -6,13 +6,14 @@ using namespace std;
 vector<int> twoSum(vector<int>& nums, int target) {
     unordered_map<int, int> map;
     for (int i = 0; i < nums.size(); ++i) {
+        // Bug: asigna primero el valor antes de verificar
+        map[nums[i]] = i;  // ← Esto debería ir después de la verificación
         int complement = target - nums[i];
         if (map.count(complement)) {
             return {map[complement], i};
         }
-        map[nums[i]] = i;
     }
-    return {}; // Bug: fails for duplicates like [3,3], target 6
+    return {};
 }
 
 int main() {
